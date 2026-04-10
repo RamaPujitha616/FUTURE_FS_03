@@ -1,0 +1,65 @@
+<!-- USER DASHBOARD MODAL -->
+<div id="dashboardModal" class="modal">
+  <div class="modal-content dashboard-content">
+    <div class="modal-header">
+      <h2>👤 User Dashboard</h2>
+      <button class="close-modal" onclick="closeDashboard()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="dashboard-welcome">
+        <div class="user-avatar">👤</div>
+        <div class="user-info">
+          <h3 id="dashboardUserName">Welcome!</h3>
+          <p id="dashboardUserEmail">user@example.com</p>
+        </div>
+      </div>
+      
+      <div class="dashboard-stats">
+        <div class="stat-card">
+          <div class="stat-icon">🛒</div>
+          <div class="stat-info">
+            <div class="stat-number" id="cartCount">0</div>
+            <div class="stat-label">Cart Items</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">❤️</div>
+          <div class="stat-info">
+            <div class="stat-number" id="wishlistCount">0</div>
+            <div class="stat-label">Wishlist</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📦</div>
+          <div class="stat-info">
+            <div class="stat-number" id="ordersCount">0</div>
+            <div class="stat-label">Orders</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="dashboard-sections">
+        <div class="dashboard-section">
+          <h3>📦 Recent Orders</h3>
+          <div id="recentOrders" class="orders-list">
+            <p class="no-data">No orders yet</p>
+          </div>
+          <button class="view-all-btn" onclick="viewAllOrders()">View All Orders</button>
+        </div>
+        
+        <div class="dashboard-section">
+          <h3>❤️ Wishlist</h3>
+          <div id="wishlistItems" class="wishlist-grid">
+            <p class="no-data">No items in wishlist</p>
+          </div>
+          <button class="view-all-btn" onclick="viewWishlist()">View Wishlist</button>
+        </div>
+      </div>
+      
+      <div class="dashboard-actions">
+        <button class="dashboard-btn logout-btn" onclick="logout()">🚪 Logout</button>
+        <button class="dashboard-btn settings-btn" onclick="showSettings()">⚙️ Settings</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Urban Roots Boutique</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--green-light), var(--green-deep));
+}
+.login-card {
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+.login-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--green-deep);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.login-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.login-form .form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+.login-form input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid rgba(26,58,42,0.15);
+  border-radius: 12px;
+  font-size: 1rem;
+  background: var(--warm-white);
+  color: var(--text-dark);
+}
+.login-form input:focus {
+  outline: none;
+  border-color: var(--green-bright);
+  box-shadow: 0 0 0 3px rgba(74,140,92,0.12);
+}
+.login-btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: var(--green-deep);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+.login-btn:hover {
+  background: var(--green-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(74,140,92,0.2);
+}
+.back-link {
+  color: var(--green-deep);
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  display: inline-block;
+}
+.back-link:hover {
+  color: var(--green-bright);
+  text-decoration: underline;
+}
+.register-link {
+  color: var(--terracotta);
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1rem;
+  display: inline-block;
+}
+.register-link:hover {
+  color: #d87659;
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="login-container">
+  <div class="login-card">
+    <h1 class="login-title">🌿 Urban Roots</h1>
+    <p class="login-subtitle">Welcome back! Please login to your account</p>
+    
+    <form class="login-form" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+      </div>
+      
+      <button type="submit" class="login-btn">🔐 Login to Your Account</button>
+    </form>
+    
+    <a href="register.html" class="register-link">📝 New User? Register Here</a>
+    <a href="index.html" class="back-link">← Back to Shop</a>
+  </div>
+</div>
+
+<script>
+function handleLogin(event) {
+  event.preventDefault();
+  
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  
+  if (!email || !password) {
+    alert('Please fill in all fields');
+    return;
+  }
+  
+  // Get registered users from localStorage
+  const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+  
+  // Check if user exists
+  const existingUser = registeredUsers.find(user => user.email === email);
+  
+  if (!existingUser) {
+    alert('No account found with this email. Please register first.');
+    // Redirect to register page
+    setTimeout(() => {
+      window.location.href = 'register.html';
+    }, 1000);
+    return;
+  }
+  
+  // Check password (for demo, we'll accept any password for existing users)
+  if (existingUser.password !== password) {
+    alert('Incorrect password. Please try again.');
+    return;
+  }
+  
+  // Show loading state
+  const btn = event.target.querySelector('.login-btn');
+  const originalText = btn.textContent;
+  btn.textContent = '🔄 Logging in...';
+  btn.disabled = true;
+  
+  // Simulate login
+  setTimeout(() => {
+    // Save user data to localStorage
+    localStorage.setItem('userEmail', email);
+    localStorage.setItem('userName', existingUser.name);
+    localStorage.setItem('userPhone', existingUser.phone || '');
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('loginTime', new Date().toISOString());
+    
+    // Initialize user account data if not exists
+    if (!localStorage.getItem('userWishlist')) {
+      localStorage.setItem('userWishlist', JSON.stringify([]));
+    }
+    if (!localStorage.getItem('userOrders')) {
+      localStorage.setItem('userOrders', JSON.stringify([]));
+    }
+    if (!localStorage.getItem('userCart')) {
+      localStorage.setItem('userCart', JSON.stringify([]));
+    }
+    
+    alert('Login successful! Welcome back to Urban Roots.');
+    window.location.href = 'index.html';
+  }, 1500);
+}
+</script>
+</body>
+</html>

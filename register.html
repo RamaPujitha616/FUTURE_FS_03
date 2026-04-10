@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register - Urban Roots Boutique</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.register-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--green-light), var(--green-deep));
+}
+.register-card {
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+.register-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: var(--green-deep);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.register-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.register-form .form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+.register-form input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid rgba(26,58,42,0.15);
+  border-radius: 12px;
+  font-size: 1rem;
+  background: var(--warm-white);
+  color: var(--text-dark);
+}
+.register-form input:focus {
+  outline: none;
+  border-color: var(--green-bright);
+  box-shadow: 0 0 0 3px rgba(74,140,92,0.12);
+}
+.register-btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: var(--terracotta);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+.register-btn:hover {
+  background: #d87659;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(216,118,38,0.2);
+}
+.back-link {
+  color: var(--green-deep);
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  display: inline-block;
+}
+.back-link:hover {
+  color: var(--green-bright);
+  text-decoration: underline;
+}
+.login-link {
+  color: var(--green-deep);
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1rem;
+  display: inline-block;
+}
+.login-link:hover {
+  color: var(--green-bright);
+  text-decoration: underline;
+}
+</style>
+</head>
+<body>
+<div class="register-container">
+  <div class="register-card">
+    <h1 class="register-title">🌿 Urban Roots</h1>
+    <p class="register-subtitle">Create your account and start your plant journey!</p>
+    
+    <form class="register-form" onsubmit="handleRegister(event)">
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="fullName" placeholder="Enter your full name" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="regEmail" placeholder="Enter your email" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="Enter your phone number" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="regPassword" placeholder="Create a password" required>
+      </div>
+      
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+      </div>
+      
+      <button type="submit" class="register-btn">📝 Create Account</button>
+    </form>
+    
+    <a href="login.html" class="login-link">👤 Already have an account? Login</a>
+    <a href="index.html" class="back-link">← Back to Shop</a>
+  </div>
+</div>
+
+<script>
+function handleRegister(event) {
+  event.preventDefault();
+  
+  const fullName = document.getElementById('fullName').value;
+  const email = document.getElementById('regEmail').value;
+  const phone = document.getElementById('phone').value;
+  const password = document.getElementById('regPassword').value;
+  const confirmPassword = document.getElementById('confirmPassword').value;
+  
+  if (!fullName || !email || !phone || !password || !confirmPassword) {
+    alert('Please fill in all fields');
+    return;
+  }
+  
+  if (password !== confirmPassword) {
+    alert('Passwords do not match');
+    return;
+  }
+  
+  if (password.length < 6) {
+    alert('Password must be at least 6 characters long');
+    return;
+  }
+  
+  // Get existing registered users
+  const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+  
+  // Check if email already exists
+  if (registeredUsers.find(user => user.email === email)) {
+    alert('An account with this email already exists. Please login.');
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 1000);
+    return;
+  }
+  
+  // Show loading state
+  const btn = event.target.querySelector('.register-btn');
+  const originalText = btn.textContent;
+  btn.textContent = '🔄 Creating Account...';
+  btn.disabled = true;
+  
+  // Simulate registration
+  setTimeout(() => {
+    // Add user to registered users list
+    const newUser = {
+      name: fullName,
+      email: email,
+      phone: phone,
+      password: password,
+      registeredAt: new Date().toISOString()
+    };
+    
+    registeredUsers.push(newUser);
+    localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+    
+    // Save user data to localStorage for current session
+    localStorage.setItem('userEmail', email);
+    localStorage.setItem('userName', fullName);
+    localStorage.setItem('userPhone', phone);
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('loginTime', new Date().toISOString());
+    
+    // Initialize user account data
+    localStorage.setItem('userWishlist', JSON.stringify([]));
+    localStorage.setItem('userOrders', JSON.stringify([]));
+    localStorage.setItem('userCart', JSON.stringify([]));
+    localStorage.setItem('userProfile', JSON.stringify({
+      name: fullName,
+      email: email,
+      phone: phone,
+      joinDate: new Date().toLocaleDateString()
+    }));
+    
+    alert('Registration successful! Welcome to Urban Roots.');
+    window.location.href = 'index.html';
+  }, 1500);
+}
+</script>
+</body>
+</html>

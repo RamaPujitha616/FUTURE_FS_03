@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Roots - Premium Plant Advertising</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.ad-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--green-light), var(--green-deep));
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.ad-nav {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 10;
+}
+
+.ad-login-btn {
+  background: var(--terracotta);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.ad-login-btn:hover {
+  background: #d87659;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(216,118,38,0.2);
+}
+
+.ad-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 60%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: float 20s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+.ad-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.ad-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  color: white;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  animation: fadeInDown 1s ease-out;
+}
+
+.ad-subtitle {
+  font-size: 1.3rem;
+  color: rgba(255,255,255,0.95);
+  margin-bottom: 2rem;
+  animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.quote-section {
+  text-align: center;
+  margin: 3rem 0;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.8rem;
+  color: rgba(255,255,255,0.9);
+  margin-bottom: 1rem;
+  position: relative;
+  animation: fadeIn 1.5s ease-out 0.6s both;
+}
+
+.quote::before,
+.quote::after {
+  content: '"';
+  font-size: 3rem;
+  color: rgba(255,255,255,0.3);
+  position: absolute;
+}
+
+.quote::before {
+  top: -20px;
+  left: -40px;
+}
+
+.quote::after {
+  bottom: -40px;
+  right: -40px;
+}
+
+.quote-author {
+  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
+  margin-top: 1rem;
+  animation: fadeIn 1.5s ease-out 0.8s both;
+}
+
+.stats-section {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin: 3rem 0;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-item {
+  text-align: center;
+  color: white;
+  animation: fadeInUp 1s ease-out 1s both;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.stat-label {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.photo-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 3rem 0;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.photo-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  animation: fadeInUp 1s ease-out;
+}
+
+.photo-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.photo-info {
+  padding: 1.5rem;
+}
+
+.photo-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--green-deep);
+  margin-bottom: 0.5rem;
+}
+
+.photo-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.ad-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 3rem auto;
+  position: relative;
+  z-index: 1;
+}
+
+.ad-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  animation: fadeInUp 1s ease-out;
+}
+
+.ad-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.ad-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+.ad-title {
+  font-size: 1.5rem;
+  color: var(--green-deep);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.ad-description {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.ad-features {
+  list-style: none;
+  padding: 0;
+}
+
+.ad-features li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(26,58,42,0.1);
+}
+
+.ad-features li:before {
+  content: '✓';
+  color: var(--green-bright);
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.cta-button {
+  background: var(--terracotta);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 2rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(216,118,38,0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(216,118,38,0); }
+  100% { box-shadow: 0 0 0 0 rgba(216,118,38,0); }
+}
+
+.cta-button:hover {
+  background: #d87659;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(216,118,38,0.2);
+}
+
+.skip-btn {
+  background: var(--green-deep);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 0.5rem;
+}
+
+.skip-btn:hover {
+  background: var(--green-bright);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .ad-title {
+    font-size: 2.5rem;
+  }
+  
+  .quote {
+    font-size: 1.4rem;
+  }
+  
+  .stats-section {
+    gap: 2rem;
+  }
+  
+  .stat-number {
+    font-size: 2.5rem;
+  }
+}
+</style>
+</head>
+<body>
+<div class="ad-container">
+  <div class="ad-nav">
+    <a href="login.html" class="ad-login-btn">👤 Login & Start Shopping</a>
+  </div>
+  
+  <div class="ad-header">
+    <h1 class="ad-title">🌿 Urban Roots Premium Plant Shop</h1>
+    <p class="ad-subtitle">Transform your space with nature's finest creations</p>
+  </div>
+
+  <div class="quote-section">
+    <div class="quote">Plants are the earth's lungs, and our homes are their sanctuary</div>
+    <div class="quote-author">- Urban Roots Philosophy</div>
+  </div>
+
+  <div class="stats-section">
+    <div class="stat-item">
+      <div class="stat-number">500+</div>
+      <div class="stat-label">Premium Plants</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">1000+</div>
+      <div class="stat-label">Happy Customers</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">5★</div>
+      <div class="stat-label">Quality Rating</div>
+    </div>
+  </div>
+
+  <div class="photo-showcase">
+    <div class="photo-card">
+      <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Luxury indoor plants">
+      <div class="photo-info">
+        <div class="photo-title">🏡 Indoor Paradise</div>
+        <div class="photo-desc">Create your personal oasis with our premium indoor collection</div>
+      </div>
+    </div>
+    <div class="photo-card">
+      <img src="https://picsum.photos/seed/garden-with-plants-and-flowers/1000/200.jpg" alt="Beautiful garden">
+      <div class="photo-info">
+        <div class="photo-title">🌺 Garden Dreams</div>
+        <div class="photo-desc">Transform your outdoor space into a botanical wonderland</div>
+      </div>
+    </div>
+    <div class="photo-card">
+      <img src="https://picsum.photos/seed/office-with-lots-of-indoor-plants/1000/200.jpg" alt="Modern office plants">
+      <div class="photo-info">
+        <div class="photo-title">🏢 Office Greenery</div>
+        <div class="photo-desc">Boost productivity and wellness in your workspace</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-section">
+    <div class="quote">The joy of gardening is a seed once sown that never dies</div>
+    <div class="quote-author">- Gertrude Jekyll</div>
+  </div>
+
+  <div class="ad-grid">
+    <div class="ad-card reveal">
+      <div class="ad-icon">🌱</div>
+      <div class="ad-title">Premium Indoor Plants</div>
+      <div class="ad-description">Transform your space with our carefully curated indoor plant collection. From tropical beauties to low-maintenance options, each plant is hand-selected for quality and beauty.</div>
+      <div class="ad-features">
+        <li>Hand-selected premium plants</li>
+        <li>Expert care instructions included</li>
+        <li>Quality guarantee & support</li>
+        <li>Free delivery on orders above ₹999</li>
+      </div>
+      <a href="login.html" class="cta-button">Shop Indoor Plants</a>
+    </div>
+
+    <div class="ad-card reveal">
+      <div class="ad-icon">🌿</div>
+      <div class="ad-title">Outdoor Garden Collection</div>
+      <div class="ad-description">Create your dream garden with our outdoor plant selection. Perfect for balconies, patios, and garden spaces. Weather-resistant and native varieties for all climates.</div>
+      <div class="ad-features">
+        <li>Weather-resistant varieties</li>
+        <li>Native plant options</li>
+        <li>Expert garden consultation</li>
+        <li>Seasonal planting guides</li>
+      </div>
+      <a href="login.html" class="cta-button">Explore Outdoor Plants</a>
+    </div>
+
+    <div class="ad-card reveal">
+      <div class="ad-icon">🪴</div>
+      <div class="ad-title">Succulents & Cacti</div>
+      <div class="ad-description">Low-maintenance beauty for busy plant lovers. Perfect for beginners and experienced gardeners alike. Stylish, drought-tolerant plants that thrive with minimal care.</div>
+      <div class="ad-features">
+        <li>Drought-tolerant varieties</li>
+        <li>Stylish planters included</li>
+        <li>Minimal care required</li>
+        <li>Perfect for modern homes</li>
+      </div>
+      <a href="login.html" class="cta-button">View Succulents</a>
+    </div>
+
+    <div class="ad-card reveal">
+      <div class="ad-icon">🎁</div>
+      <div class="ad-title">Plant Gift Sets</div>
+      <div class="ad-description">Perfect gift for plant lovers. Beautifully packaged plant sets for every occasion. Birthdays, anniversaries, housewarmings, or just because - make it special with plants.</div>
+      <div class="ad-features">
+        <li>Premium gift wrapping</li>
+        <li>Personalized messages</li>
+        <li>Same-day delivery options</li>
+        <li>Custom plant combinations</li>
+      </div>
+      <a href="login.html" class="cta-button">Shop Gift Sets</a>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 3rem; position: relative; z-index: 1;">
+    <a href="index.html" class="skip-btn">Skip to Main Site</a>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    observer.observe(el);
+  });
+});
+</script>
+</body>
+</html>
